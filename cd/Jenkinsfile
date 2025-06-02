@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    // Example: simple deployment commands or script call
+                    // Replace with your actual deployment commands
+                    echo 'Deploying application...'
+                    // e.g., ssh to server and run deployment scripts
+                    // sh 'ssh user@server "cd /path && ./deploy.sh"'
+                }
+            }
+        }
+    }
+    post {
+        always {
+            echo 'CD Pipeline finished.'
+        }
+        success {
+            echo 'Deployment succeeded!'
+        }
+        failure {
+            echo 'Deployment failed.'
+        }
+    }
+}
