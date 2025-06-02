@@ -1,36 +1,43 @@
 pipeline {
     agent any
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
+
         stage('Install Dependencies') {
             steps {
-                script {
-                    // Install backend dependencies
-                    sh 'cd backend && npm install'
-                    // Install frontend dependencies
-                    sh 'cd frontend && npm install'
-                }
+                bat '''
+                    cd backend
+                    npm install
+                    cd ../frontend
+                    npm install
+                '''
             }
         }
+
         stage('Run Backend Tests') {
             steps {
-                script {
-                    sh 'cd backend && npm test'  // Adjust if you have tests
-                }
+                bat '''
+                    cd backend
+                    npm test
+                '''
             }
         }
+
         stage('Run Frontend Tests') {
             steps {
-                script {
-                    sh 'cd frontend && npm test'  // Adjust if you have tests
-                }
+                bat '''
+                    cd frontend
+                    npm test
+                '''
             }
         }
     }
+
     post {
         always {
             echo 'CI Pipeline finished.'
