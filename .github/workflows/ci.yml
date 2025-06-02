@@ -1,0 +1,47 @@
+name: Online Complaint Box CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./  # Start from project root
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+
+    # ---------- Backend ----------
+    - name: Install backend dependencies
+      run: npm install
+      working-directory: backend
+
+    - name: Lint backend (optional)
+      run: echo "No backend linting configured"
+
+    - name: Test backend (optional)
+      run: echo "No backend tests configured"
+
+    # ---------- Frontend ----------
+    - name: Install frontend dependencies
+      run: npm install
+      working-directory: frontend
+
+    - name: Build frontend
+      run: npm run build
+      working-directory: frontend
+
+    - name: Test frontend (optional)
+      run: echo "No frontend tests configured"
