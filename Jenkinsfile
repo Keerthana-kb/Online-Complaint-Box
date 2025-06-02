@@ -8,7 +8,7 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Backend and Frontend Dependencies') {
             steps {
                 bat '''
                     cd backend
